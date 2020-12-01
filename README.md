@@ -23,3 +23,6 @@
 ## **역할 분담**
 * 김현기 : win32API 프로그램 설계도 제작, win32 API를 분석하여 팀원이 만든 알괴리즘을 GUI로 구현하는 코드 제작
 * 최낙현 : 단어장 기능 구현 설계도 제작, 단어장 알고리즘 코드 제작
+
+## **설계도**
+* [단어장 기능 구현 설계도] : (https://github.com/kim-hyeon-gi/wordBook/blob/master/wordBook/%EC%84%A4%EA%B3%84%EB%8F%84.PNG)
