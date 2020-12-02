@@ -25,4 +25,4 @@
 * 최낙현 : 단어장 기능 구현 설계도 제작, 단어장 알고리즘 코드 제작
 
 ## **설계도**
-* [단어장 기능 구현 설계도] : (https://github.com/kim-hyeon-gi/wordBook/blob/master/wordBook/%EC%84%A4%EA%B3%84%EB%8F%84.PNG)
+* [단어장 기능 구현 설계도] : (https://github.com/kim-hyeon-gi/wordBook/blob/master/%EC%84%A4%EA%B3%84%EB%8F%84.PNG)
