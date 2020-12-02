@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="wordBookForm.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="wordBook.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wordBook.c" />
+    <ClCompile Include="wordBookForm.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

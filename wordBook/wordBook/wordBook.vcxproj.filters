@@ -18,6 +18,9 @@
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="wordBookForm.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="wordBook.rc">
@@ -26,6 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wordBook.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="wordBookForm.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
