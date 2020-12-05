@@ -11,6 +11,6 @@ void Create(WordBook* wordBook, Long capacity) {
 void Destroy(WordBook* wordBook) {
 	if (wordBook->words != NULL) {
 		free(wordBook->words);
-		printf("%s", "ÇÒ´ç ÇØÁ¦µÇ¾ú½À´Ï´Ù.");
+		printf("%s", "í• ë‹¹ í•´ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 	}
 }
