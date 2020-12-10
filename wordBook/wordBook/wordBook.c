@@ -14,6 +14,7 @@ void Destroy(WordBook* wordBook) {
 		printf("%s", "할당 해제되었습니다.");
 	}
 }
+<<<<<<< HEAD
 
 Long Load(WordBook* wordBook) {
 	Word(*words) = NULL;
@@ -47,3 +48,5 @@ Long Load(WordBook* wordBook) {
 	}
 	return wordBook->length;
 }
+=======
+>>>>>>> 5528e5c8367d4662ffd909b2c40b6f948e6f2e65
