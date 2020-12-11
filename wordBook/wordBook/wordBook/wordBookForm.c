@@ -19,6 +19,10 @@ BOOL CALLBACK WordBookFormProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
 	case WM_INITDIALOG:
 		ret = WordBookForm_OnInitDialog(hWnd, wParam, lParam);
 		break;
+
+	case WM_COMMAND:
+		ret = WordBookForm_OnCommand(hWnd, wParam, lParam);
+		break;
 	case WM_CLOSE:
 		ret = WordBookForm_OnClose(hWnd, wParam, lParam);
 		break;
@@ -85,8 +89,58 @@ BOOL WordBookForm_OnInitDialog(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 }
 
 BOOL WordBookForm_OnClose(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	WordBook* wordBook;
+	wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
+	//Save(wordBook);
+	if (wordBook != NULL) {
+		Destroy(wordBook);
+	}
+	EndDialog(hWnd, 0);
+	return TRUE;
+}
+BOOL WordBookForm_OnCommand(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	BOOL ret;
+	switch (LOWORD(wParam)) {
+	case IDC_BUTTON_RECORD:
+		ret = wordBookForm_OnRecordButtonClicked(hWnd, wParam, lParam);
+		break;
+	default :
+		ret = FALSE;
+		break;
+	}
+	return ret;
+}
+BOOL WordBookForm_OnRecordButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	TCHAR spelling[64]; WordBook* wordBook; TCHAR number[64];
+	TCHAR wordClass[16]; Long index;
+	TCHAR mean[16]; LVITEM item = { 0, };
+	TCHAR example[256];
+	if (HIWORD(wParam) == BN_CLICKED) {
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_SPELLING), WM_GETTEXT, (WPARAM)64, (LPARAM)spelling);
+		SendMessage(GetDlgItem(hWnd, IDC_COMBO_WORDCLASS), WM_GETTEXT, (WPARAM)16, (LPARAM)spelling);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_MEAN), WM_GETTEXT, (WPARAM)16, (LPARAM)spelling);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_EXAMPLE), WM_GETTEXT, (WPARAM)256, (LPARAM)spelling);
 
+		wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
+		index = Record(wordBook, spelling, wordClass, mean, example);
 
+		item.mask = LVIF_TEXT;
+		item.iSubItem = 0;
+		Springf(number, "%d", index + 1); item.pszText = number;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_INSERTITEM, (WPARAM)0, (LPARAM)&item);
+		item.iSubItem = 1;
+		item.pszText = wordBook->words[index].spelling;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM) index, (LPARAM)&item);
+		item.iSubItem = 2;
+		item.pszText = wordBook->words[index].wordClass;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+		item.iSubItem = 3;
+		item.pszText = wordBook->words[index].mean;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+		item.iSubItem = 4;
+		item.pszText = wordBook->words[index].example;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 
+	}
 	return TRUE;
 }
