@@ -8,6 +8,7 @@
 #include "resource.h"
 #include <winuser.h>
 #include <winbase.h>
+#include "FindForm.h"
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpzCmdLine, int nCmdShow) {
 	int response;
 	response = DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG_WORDBOOKFORM), NULL, WordBookFormProc);
@@ -45,7 +46,7 @@ BOOL WordBookForm_OnInitDialog(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 	wordBook = (WordBook(*))malloc(sizeof(WordBook));
 	Create(wordBook, 10000);
 	SetWindowLong(hWnd, GWL_USERDATA, (LONG)wordBook);
-	count = 3;  //Load(wordBook);
+	count = Load(wordBook);
 	column.mask = LVCF_TEXT | LVCF_WIDTH;
 	column.cx = 50;
 	column.pszText = "¹øÈ£";
@@ -91,7 +92,7 @@ BOOL WordBookForm_OnInitDialog(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 BOOL WordBookForm_OnClose(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 	WordBook* wordBook;
 	wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
-	//Save(wordBook);
+	Save(wordBook);
 	if (wordBook != NULL) {
 		Destroy(wordBook);
 	}
@@ -101,12 +102,18 @@ BOOL WordBookForm_OnClose(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 BOOL WordBookForm_OnCommand(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 	BOOL ret;
 	switch (LOWORD(wParam)) {
-	case IDC_BUTTON_RECORD:
-		ret = wordBookForm_OnRecordButtonClicked(hWnd, wParam, lParam);
-		break;
-	default :
-		ret = FALSE;
-		break;
+		case IDC_BUTTON_RECORD:
+			ret = WordBookForm_OnRecordButtonClicked(hWnd, wParam, lParam);
+			break;
+		case IDC_BUTTON_FIND:
+			ret = WordBookForm_OnFindButtonClicked(hWnd, wParam, lParam);
+			break;
+		case IDC_BUTTON_CORRECT:
+			ret = WordBookForm_OnCorrectButtonClicked(hWnd, wParam, lParam);
+			break;
+		default :
+			ret = FALSE;
+			break;
 	}
 	return ret;
 }
@@ -116,17 +123,18 @@ BOOL WordBookForm_OnRecordButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam)
 	TCHAR mean[16]; LVITEM item = { 0, };
 	TCHAR example[256];
 	if (HIWORD(wParam) == BN_CLICKED) {
-		SendMessage(GetDlgItem(hWnd, IDC_EDIT_SPELLING), WM_GETTEXT, (WPARAM)64, (LPARAM)spelling);
-		SendMessage(GetDlgItem(hWnd, IDC_COMBO_WORDCLASS), WM_GETTEXT, (WPARAM)16, (LPARAM)spelling);
-		SendMessage(GetDlgItem(hWnd, IDC_EDIT_MEAN), WM_GETTEXT, (WPARAM)16, (LPARAM)spelling);
-		SendMessage(GetDlgItem(hWnd, IDC_EDIT_EXAMPLE), WM_GETTEXT, (WPARAM)256, (LPARAM)spelling);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_SPELLING), WM_GETTEXT, (WPARAM)64, (LPARAM) spelling);
+		SendMessage(GetDlgItem(hWnd, IDC_COMBO_WORDCLASS), WM_GETTEXT, (WPARAM)16, (LPARAM) wordClass);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_MEAN), WM_GETTEXT, (WPARAM)16, (LPARAM) mean);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_EXAMPLE), WM_GETTEXT, (WPARAM)256, (LPARAM) example);
 
 		wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
 		index = Record(wordBook, spelling, wordClass, mean, example);
 
 		item.mask = LVIF_TEXT;
+		item.iItem = index;
 		item.iSubItem = 0;
-		Springf(number, "%d", index + 1); item.pszText = number;
+		sprintf(number, "%d", index + 1); item.pszText = number;
 		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_INSERTITEM, (WPARAM)0, (LPARAM)&item);
 		item.iSubItem = 1;
 		item.pszText = wordBook->words[index].spelling;
@@ -141,6 +149,41 @@ BOOL WordBookForm_OnRecordButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		item.pszText = wordBook->words[index].example;
 		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 
+	}
+	return TRUE;
+}
+BOOL WordBookForm_OnFindButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	if (HIWORD(wParam) == BN_CLICKED) {
+		DialogBox((HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE), MAKEINTRESOURCE(IDD_DIALOG_FINDFORM), NULL, FindFormProc);
+	}
+	return TRUE;
+}
+BOOL WordBookForm_OnCorrectButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	LVITEM item = { 0, };
+	WordBook* wordBook;
+	Long index;
+	TCHAR wordClass[16];
+	TCHAR mean[16];
+	TCHAR example[256];
+	if (HIWORD(wParam) == BN_CLICKED) {
+		index = SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETSELECTIONMARK, (WPARAM)0, (LPARAM)0);
+		SendMessage(GetDlgItem(hWnd, IDC_COMBO_WORDCLASS), WM_GETTEXT, (WPARAM)16, (LPARAM)wordClass);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_MEAN), WM_GETTEXT, (WPARAM)16, (LPARAM)mean);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_EXAMPLE), WM_GETTEXT, (WPARAM)256, (LPARAM)example);
+		
+		wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
+		index = Correct(wordBook, index, wordClass, mean, example);
+		item.mask = LVIF_TEXT;
+		item.iItem = index;
+		item.iSubItem = 2;
+		item.pszText = wordBook->words[index].wordClass;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+		item.iSubItem = 3;
+		item.pszText = wordBook->words[index].mean;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+		item.iSubItem = 4;
+		item.pszText = wordBook->words[index].example;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 	}
 	return TRUE;
 }
