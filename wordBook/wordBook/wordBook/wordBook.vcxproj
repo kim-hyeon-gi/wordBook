@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FindForm.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="wordBook.h" />
     <ClInclude Include="wordBookForm.h" />
@@ -147,6 +148,7 @@
     <ResourceCompile Include="wordBook.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FindForm.c" />
     <ClCompile Include="wordBook.c" />
     <ClCompile Include="wordBookForm.c" />
   </ItemGroup>
