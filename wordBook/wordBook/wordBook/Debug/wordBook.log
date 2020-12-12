@@ -1,4 +1,11 @@
-﻿wordBookForm.obj : error LNK2019: _wordBookForm_OnRecordButtonClicked_WordBookForm_OnCommand 함수에서 참조되는 확인할 수 없는 외부 기호
-wordBookForm.obj : error LNK2019: _Record_WordBookForm_OnRecordButtonClicked 함수에서 참조되는 확인할 수 없는 외부 기호
-wordBookForm.obj : error LNK2019: _Springf_WordBookForm_OnRecordButtonClicked 함수에서 참조되는 확인할 수 없는 외부 기호
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\Debug\wordBook.exe : fatal error LNK1120: 3개의 확인할 수 없는 외부 참조입니다.
+﻿  wordBook.c
+C:\opensource_home\wordBook\wordBook\wordBook\wordBook\wordBook.c(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  wordBookForm.c
+C:\opensource_home\wordBook\wordBook\wordBook\wordBook\wordBookForm.c(105,43): warning C4013: 'wordBookForm_OnRecordButtonClicked'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\opensource_home\wordBook\wordBook\wordBook\wordBook\wordBookForm.c(125,17): warning C4013: 'Record'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\opensource_home\wordBook\wordBook\wordBook\wordBook\wordBookForm.c(129,10): warning C4013: 'Springf'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  코드를 생성하고 있습니다...
+wordBookForm.obj : error LNK2019: _wordBookForm_OnRecordButtonClicked 외부 기호(참조 위치: _WordBookForm_OnCommand 함수)에서 확인하지 못했습니다.
+wordBookForm.obj : error LNK2019: _Record 외부 기호(참조 위치: _WordBookForm_OnRecordButtonClicked 함수)에서 확인하지 못했습니다.
+wordBookForm.obj : error LNK2019: _Springf 외부 기호(참조 위치: _WordBookForm_OnRecordButtonClicked 함수)에서 확인하지 못했습니다.
+C:\opensource_home\wordBook\wordBook\wordBook\Debug\wordBook.exe : fatal error LNK1120: 3개의 확인할 수 없는 외부 참조입니다.
