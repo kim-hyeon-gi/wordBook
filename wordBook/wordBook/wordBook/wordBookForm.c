@@ -111,11 +111,26 @@ BOOL WordBookForm_OnCommand(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 		case IDC_BUTTON_CORRECT:
 			ret = WordBookForm_OnCorrectButtonClicked(hWnd, wParam, lParam);
 			break;
+		case IDC_BUTTON_ERASE:
+			ret = WordBookForm_OnEraseButtonClicked(hWnd, wParam, lParam);
+			break;
+
 		default :
 			ret = FALSE;
 			break;
 	}
 	return ret;
+}
+BOOL WordBookForm_OnNotify(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	BOOL ret;
+	switch (((NMHDR*)lParam)->idFrom) {
+		case IDC_LIST:
+			ret = WordBookForm_OnListButtonClicked(hWnd, wParam, lParam);
+			break;
+		default:
+			ret = FALSE;
+			break;
+	}
 }
 BOOL WordBookForm_OnRecordButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 	TCHAR spelling[64]; WordBook* wordBook; TCHAR number[64];
@@ -185,5 +200,38 @@ BOOL WordBookForm_OnCorrectButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam
 		item.pszText = wordBook->words[index].example;
 		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 	}
+	return TRUE;
+}
+
+BOOL WordBookForm_OnListViewDoubleClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	return TRUE;
+}
+
+BOOL WordBookForm_OnEraseButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	WordBook* wordBook;
+	LVITEM item = { 0, };
+	Long index;
+	TCHAR number[64];
+	if (HIWORD(wParam) == BN_CLICKED) {
+		index = SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETSELECTIONMARK, (WPARAM)0, (LPARAM)0);
+		wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
+		//Erase(wordBook, index);
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_DELETEITEM, (WPARAM)index, (LPARAM)0);
+		item.mask = LVIF_TEXT;
+		item.iSubItem = 0;
+		while (index < wordBook->length) {
+			item.iItem = index;
+			sprintf(number, "%d", index + 1);
+			item.pszText = number;
+			SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+			index++;
+		}
+	}
+	return TRUE;
+}
+BOOL WordBookForm_OnArrangeButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	return TRUE;
+}
+BOOL WordBookForm_OnListButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 	return TRUE;
 }

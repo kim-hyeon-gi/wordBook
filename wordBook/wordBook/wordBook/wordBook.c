@@ -5,70 +5,68 @@
 #include <string.h>
 
 
-#if 0
-int main(int args, char* argv[]) {
-	WordBook wordBook;
-	Long(*indexes) = NULL;
-	Long count;
-	Long index;
-	Create(&wordBook, 3);
-	count = Load(&wordBook);
-	index = Record(&wordBook, "view", "동사", "보다", "esdsdsds");
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
-	index = Record(&wordBook, "find", "동사", "보다", "esdsdsds");
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
-	index = Record(&wordBook, "preods", "동사", "보다", "esdsdsds");
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
-	index = Record(&wordBook, "vadsad", "동사", "보다", "esdsdsds");
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
-	index = Record(&wordBook, "qweqweqw", "동사", "보다", "esdsdsds");
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
 
-	printf("찾기");
-	FindSpelling(&wordBook, "find", &indexes, &count);
-	index = 0;
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[indexes[index]].spelling, wordBook.words[indexes[index]].wordClass, wordBook.words[indexes[index]].mean, wordBook.words[indexes[index]].example);
-	printf("고치기\n");
-	index = Correct(&wordBook, 2, "동사", "섭취하다", "ㄷㄴㅁ");
-	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//int main(int args, char* argv[]) {
+//	WordBook wordBook;
+//	Long(*indexes) = NULL;
+//	Long count;
+//	Long index;
+//	Create(&wordBook, 3);
+//	count = Load(&wordBook);
+//	index = Record(&wordBook, "view", "동사", "보다", "esdsdsds");
+//	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//	index = Record(&wordBook, "find", "동사", "보다", "esdsdsds");
+//	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//	index = Record(&wordBook, "preods", "동사", "보다", "esdsdsds");
+//	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//	index = Record(&wordBook, "vadsad", "동사", "보다", "esdsdsds");
+//	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//	index = Record(&wordBook, "qweqweqw", "동사", "보다", "esdsdsds");
+//	printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//
+//	printf("찾기");
+//	FindSpelling(&wordBook, "find", &indexes, &count);
+//	index = 0;
+//	printf("%d %s %s %s %s\n", index + 1, wordBook.words[indexes[index]].spelling, wordBook.words[indexes[index]].wordClass, wordBook.words[indexes[index]].mean, wordBook.words[indexes[index]].example);
+//	printf("고치기\n");
+//	
+//
+//	if (index == -1) {
+//		printf("지웠음");
+//	}
+//
+//	index = 0;
+//	printf("지운거 확인");
+//	while (index < wordBook.length) {
+//		printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//		index++;
+//	}
+//
+//
+//	index = 0;
+//	printf("정렬\n");
+//	while (index < wordBook.length) {
+//		printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
+//		index++;
+//	}
+//
+//
+//
+//
+//	Save(&wordBook);
+//	if (indexes != NULL) {
+//		free(indexes);
+//	}
+//
+//
+//
+//
+//
+//	Destroy(&wordBook);
+//
+//	return 0;
+//}
 
-	index = Erase(&wordBook, 2);
-	if (index == -1) {
-		printf("지웠음");
-	}
-
-	index = 0;
-	printf("지운거 확인");
-	while (index < wordBook.length) {
-		printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
-		index++;
-	}
-
-	Arrange(&wordBook);
-	index = 0;
-	printf("정렬\n");
-	while (index < wordBook.length) {
-		printf("%d %s %s %s %s\n", index + 1, wordBook.words[index].spelling, wordBook.words[index].wordClass, wordBook.words[index].mean, wordBook.words[index].example);
-		index++;
-	}
-
-
-
-
-	Save(&wordBook);
-	if (indexes != NULL) {
-		free(indexes);
-	}
-
-
-
-
-
-	Destroy(&wordBook);
-
-	return 0;
-}
-#endif
 
 void Create(WordBook* wordBook, Long capacity) {
 
@@ -159,6 +157,7 @@ Long Record(WordBook* wordBook, char(*spelling), char(*wordClass), char(*mean), 
 
 void FindSpelling(WordBook* wordBook, char(*spelling), Long* (*indexes), Long* count) {
 	Long index = 0;
+	int a;
 	Long i = 0;
 	*count = 0;
 	*indexes = NULL;
@@ -173,7 +172,8 @@ void FindSpelling(WordBook* wordBook, char(*spelling), Long* (*indexes), Long* c
 		index = 0;
 		while (index < wordBook->length) {
 			if (strcmp(wordBook->words[index].spelling, spelling) == 0) {
-				*indexes[i] = index;
+				int a = *count;
+				(*indexes)[i] = index;
 				i++;
 			}
 			index++;
@@ -190,7 +190,7 @@ void FindMean(WordBook* wordBook, char(*mean), Long* (*indexes), Long* count) {
 	Long index = 0;
 	Long i = 0;
 	*count = 0;
-	*indexes = NULL;
+	*indexes =NULL;
 	while (index < wordBook->length) {
 		if (strcmp(wordBook->words[index].mean, mean) == 0) {
 			(*count)++;
