@@ -209,29 +209,3 @@ void FindMean(WordBook* wordBook, char(*mean), Long* (*indexes), Long* count) {
 		}
 	}
 }
-Long Erase(WordBook* wordBook, Long index) {
-	Word(*words) = NULL;
-	Long i = 0;
-	if (wordBook->capacity > 1) {
-		words = (Word(*))calloc(wordBook->capacity - 1, sizeof(Word));
-		while (i < index) {
-			words[i] = wordBook->words[i + 1];
-			i++;
-		}
-		while (i < wordBook->length - 1) {
-			words[i] = wordBook->words[i + 1];
-			i++;
-
-		}
-	}
-	if (wordBook->words != NULL) {
-		free(wordBook->words);
-	}
-	if (wordBook->capacity > 1) {
-		wordBook->words = words;
-	}
-	wordBook->capacity--;
-	wordBook->length--;
-	index = -1;
-	return index;
-}
