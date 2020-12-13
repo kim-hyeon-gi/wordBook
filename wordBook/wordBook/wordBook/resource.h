@@ -4,7 +4,6 @@
 //
 #define IDD_DIALOG1                     101
 #define IDD_DIALOG_WORDBOOKFORM         101
-#define IDD_DIALOG2                     103
 #define IDD_DIALOG_FINDFORM             103
 #define IDC_COMBO1                      1001
 #define IDC_COMBO_WORDCLASS             1001
@@ -17,6 +16,12 @@
 #define IDC_EDIT_EXAMPLE                1008
 #define IDC_EDIT_MEAN                   1009
 #define IDC_LIST                        1014
+#define ID_RADIO_MEAN                   1016
+#define ID_RADIO_SPELLING               1017
+#define IDC_EDIT_SPELLING2              1018
+#define IDC_EDIT_MEAN2                  1019
+#define IDC_LIST1                       1020
+#define IDC_BUTTON_SPELLING             1021
 
 // Next default values for new objects
 // 
@@ -24,7 +29,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        105
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1015
+#define _APS_NEXT_CONTROL_VALUE         1022
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
