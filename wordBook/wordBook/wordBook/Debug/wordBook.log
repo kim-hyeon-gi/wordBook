@@ -1,12 +1,1 @@
-﻿  FindForm.c
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\FindForm.c(100,45): warning C4047: '함수': 'char *'의 간접 참조 수준이 'Long **'과(와) 다릅니다.
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\FindForm.c(100,37): warning C4024: 'FindSpelling': 형식 및 실제 매개 변수 3의 형식이 서로 다릅니다.
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\FindForm.c(109,39): warning C4020: 'FindMean': 실제 매개 변수가 너무 많습니다.
-  wordBook.c
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\wordBook.c(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\wordBook.c(160,64): warning C4028: 정식 매개 변수 3이(가) 선언과 다릅니다.
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\wordBook.c(162,6): warning C4101: 'a' :참조되지 않은 지역 변수입니다.
-C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\wordBook.c(191,79): warning C4029: 선언된 정식 매개 변수 목록이 정의와 다릅니다.
-  코드를 생성하고 있습니다...
-  LINK : C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\Debug\wordBook.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
-  wordBook.vcxproj -> C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\Debug\wordBook.exe
+﻿  wordBook.vcxproj -> C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\Debug\wordBook.exe

@@ -24,6 +24,9 @@ BOOL CALLBACK WordBookFormProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
 	case WM_COMMAND:
 		ret = WordBookForm_OnCommand(hWnd, wParam, lParam);
 		break;
+	case WM_NOTIFY:
+		ret = WordBookForm_OnNotify(hWnd, wParam, lParam);
+		break;
 	case WM_CLOSE:
 		ret = WordBookForm_OnClose(hWnd, wParam, lParam);
 		break;
@@ -80,7 +83,7 @@ BOOL WordBookForm_OnInitDialog(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 		index++;
 	}
-
+	SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETEXTENDEDLISTVIEWSTYLE, (WPARAM)0, (LPARAM)LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
 	index = 0;
 	while (index < sizeof(type) / sizeof(type[0])) {
 		SendMessage(GetDlgItem(hWnd, IDC_COMBO_WORDCLASS), CB_ADDSTRING, (WPARAM)0, (LPARAM)type[index]);
@@ -114,6 +117,9 @@ BOOL WordBookForm_OnCommand(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 		case IDC_BUTTON_ERASE:
 			ret = WordBookForm_OnEraseButtonClicked(hWnd, wParam, lParam);
 			break;
+		case IDC_BUTTON_ARRANGE:
+			ret = WordBookForm_OnArrangeButtonClicked(hWnd, wParam, lParam);
+			break;
 
 		default :
 			ret = FALSE;
@@ -125,7 +131,7 @@ BOOL WordBookForm_OnNotify(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 	BOOL ret;
 	switch (((NMHDR*)lParam)->idFrom) {
 		case IDC_LIST:
-			ret = WordBookForm_OnListButtonClicked(hWnd, wParam, lParam);
+			ret = WordBookForm_OnListViewDoubleClicked(hWnd, wParam, lParam);
 			break;
 		default:
 			ret = FALSE;
@@ -204,6 +210,43 @@ BOOL WordBookForm_OnCorrectButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam
 }
 
 BOOL WordBookForm_OnListViewDoubleClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	Long index;
+	TCHAR spelling[64];
+	TCHAR wordClass[16];
+	TCHAR mean[16];
+	TCHAR example[256];
+	LVITEM item = { 0, };
+
+	if (((NMHDR*)lParam)->code == NM_DBLCLK) {
+		index = SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETSELECTIONMARK, (WPARAM)0, (LPARAM)0);
+		item.mask = LVIF_TEXT;
+		item.iItem = index;
+		item.iSubItem = 1;
+		item.pszText = spelling;
+		item.cchTextMax = 64;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+
+		item.iSubItem = 2;
+		item.pszText = wordClass;
+		item.cchTextMax = 64;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+
+		item.iSubItem = 3;
+		item.pszText = mean;
+		item.cchTextMax = 64;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+
+		item.iSubItem = 4;
+		item.pszText = example;
+		item.cchTextMax = 256;
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_SPELLING), WM_SETTEXT, (WPARAM)0, (LPARAM)spelling);
+		SendMessage(GetDlgItem(hWnd, IDC_COMBO_WORDCLASS), WM_SETTEXT, (WPARAM)0, (LPARAM)wordClass);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_MEAN), WM_SETTEXT, (WPARAM)0, (LPARAM)mean);
+		SendMessage(GetDlgItem(hWnd, IDC_EDIT_EXAMPLE), WM_SETTEXT, (WPARAM)0, (LPARAM)example);
+
+	}
 	return TRUE;
 }
 
@@ -215,7 +258,7 @@ BOOL WordBookForm_OnEraseButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) 
 	if (HIWORD(wParam) == BN_CLICKED) {
 		index = SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_GETSELECTIONMARK, (WPARAM)0, (LPARAM)0);
 		wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
-		//Erase(wordBook, index);
+		Erase(wordBook, index);
 		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_DELETEITEM, (WPARAM)index, (LPARAM)0);
 		item.mask = LVIF_TEXT;
 		item.iSubItem = 0;
@@ -230,8 +273,36 @@ BOOL WordBookForm_OnEraseButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) 
 	return TRUE;
 }
 BOOL WordBookForm_OnArrangeButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
-	return TRUE;
-}
-BOOL WordBookForm_OnListButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
+	WordBook* wordBook;
+	TCHAR number[64];
+	LVITEM item = { 0, };
+	Long index = 0;
+	if (HIWORD(wParam) == BN_CLICKED) {
+		wordBook = (WordBook(*))GetWindowLong(hWnd, GWL_USERDATA);
+		Arrange(wordBook);
+		SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_DELETEALLITEMS, (WPARAM)0, (LPARAM)0);
+		item.mask = LVIF_TEXT;
+		while (index < wordBook->length) {
+			item.iItem = index;
+			item.iSubItem = 0;
+			sprintf(number, "%d", index + 1);
+			item.pszText = number;
+			SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_INSERTITEM, (WPARAM)0, (LPARAM)&item);
+			item.iSubItem = 1;
+			item.pszText = wordBook->words[index].spelling;
+			SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+			item.iSubItem = 2;
+			item.pszText = wordBook->words[index].wordClass;
+			SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+			item.iSubItem = 3;
+			item.pszText = wordBook->words[index].mean;
+			SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+			item.iSubItem = 4;
+			item.pszText = wordBook->words[index].example;
+			SendMessage(GetDlgItem(hWnd, IDC_LIST), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
+			index++;
+		}
+
+	}
 	return TRUE;
 }

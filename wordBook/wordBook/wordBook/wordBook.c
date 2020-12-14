@@ -204,7 +204,7 @@ void FindMean(WordBook* wordBook, char(*mean), Long* (*indexes), Long* count) {
 		index = 0;
 		while (index < wordBook->length) {
 			if (strcmp(wordBook->words[index].mean, mean) == 0) {
-				*indexes[i] = index;
+				(*indexes)[i] = index;
 				i++;
 			}
 			index++;
@@ -244,7 +244,7 @@ void Arrange(WordBook* wordBook) {
 	while (i < wordBook->length) {
 		keyWord = wordBook->words[i];
 		j = i - 1;
-		while (j >= 0 && strcmp(wordBook->words[j].spelling, wordBook->words[i].spelling) > 0) {
+		while (j >= 0 && strcmp(wordBook->words[j].spelling, keyWord.spelling) > 0) {
 			wordBook->words[j + 1] = wordBook->words[j];
 			j--;
 		}
