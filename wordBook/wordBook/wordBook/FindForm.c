@@ -121,13 +121,13 @@ BOOL FindForm_OnFindButtonClicked(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 				item.pszText = wordBook->words[index].spelling;
 				SendMessage(GetDlgItem(hWnd, IDC_LIST1), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 				item.iSubItem = 2;
-				item.pszText = wordBook->words[index].mean;
+				item.pszText = wordBook->words[index].wordClass;
 				SendMessage(GetDlgItem(hWnd, IDC_LIST1), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 				item.iSubItem = 3;
-				item.pszText = wordBook->words[index].spelling;
+				item.pszText = wordBook->words[index].mean;
 				SendMessage(GetDlgItem(hWnd, IDC_LIST1), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 				item.iSubItem = 4;
-				item.pszText = wordBook->words[index].wordClass;
+				item.pszText = wordBook->words[index].example;
 				SendMessage(GetDlgItem(hWnd, IDC_LIST1), LVM_SETITEMTEXT, (WPARAM)index, (LPARAM)&item);
 				index++;
 			}
