@@ -1,4 +1,4 @@
-<span style="color:blue"> # **단어장 프로그램![WordBook](https://www.google.com/url?sa=i&url=https%3A%2F%2Fkr.123rf.com%2Fphoto_48106295_%25EB%25B2%25A1%25ED%2584%25B0-%25EC%259D%25BC%25EB%259F%25AC%25EC%258A%25A4%25ED%258A%25B8-%25EB%25A0%2588%25EC%259D%25B4-%25EC%2585%2598-%25ED%258F%2589%25EB%25A9%25B4-%25EC%2584%25A4%25EA%25B3%2584-%25EB%258F%2584%25EC%2584%259C-%25EB%25B0%25B1%25EA%25B3%25BC-%25EC%2582%25AC%25EC%25A0%2584%25EC%259D%2598-%25EC%2582%25AC%25EA%25B0%2581%25ED%2598%2595-%25EB%25AA%25A8%25EC%2596%2591%25EC%259D%2584-%25EC%2595%2584%25EC%259D%25B4%25EC%25BD%2598.html&psig=AOvVaw2Z2B58liR07ZK_z6C0e0f4&ust=1608085124399000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOiu4Iv2zu0CFQAAAAAdAAAAABAD)**
+<span style="color:blue"> # **단어장 프로그램**</span>
 ***
 ## **개요**
 이 프로그램은 단어장 프로그램입니다. 사용자가 원하는 단어를 저장할수있습니다. 프로그램 종료시 자동으로 기록했던 단어들이 저장이 되고 나중에 다시 프로그램을 시작했을때 유지되게 됩니다.
