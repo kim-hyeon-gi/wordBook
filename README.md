@@ -1,4 +1,4 @@
-![WordBook](https://data.ac-illust.com/data/thumbnails/52/52a0ba0c1f7841817f8799d6b461edd3_t.jpeg)
+![WordBook](https://en.pimg.jp/056/500/244/1/56500244.jpg)
 # **단어장 프로그램**
 ***
 ## **개요**
