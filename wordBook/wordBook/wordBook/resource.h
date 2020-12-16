@@ -21,7 +21,6 @@
 #define IDC_EDIT_SPELLING2              1018
 #define IDC_EDIT_MEAN2                  1019
 #define IDC_LIST1                       1020
-#define IDC_BUTTON_SPELLING             1021
 
 // Next default values for new objects
 // 

@@ -61,7 +61,7 @@ BEGIN
     PUSHBUTTON      "지우기",IDC_BUTTON_ERASE,220,82,63,17
     PUSHBUTTON      "수정하기",IDC_BUTTON_CORRECT,219,59,63,17
     PUSHBUTTON      "정렬하기",IDC_BUTTON_ARRANGE,220,103,63,17
-    LTEXT           "철자",IDC_STATIC,24,20,16,8
+    LTEXT           "스펠링",IDC_STATIC,24,20,23,8
     LTEXT           "뜻",IDC_STATIC,26,39,8,8
     LTEXT           "품사",IDC_STATIC,24,56,16,8
     LTEXT           "예시",IDC_STATIC,23,74,16,8

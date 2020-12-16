@@ -1,1 +1,5 @@
-﻿  wordBook.vcxproj -> C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\Debug\wordBook.exe
+﻿  FindForm.c
+C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\FindForm.c(100,45): warning C4047: '함수': 'char *'의 간접 참조 수준이 'Long **'과(와) 다릅니다.
+C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\FindForm.c(100,37): warning C4024: 'FindSpelling': 형식 및 실제 매개 변수 3의 형식이 서로 다릅니다.
+C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\wordBook\FindForm.c(109,39): warning C4020: 'FindMean': 실제 매개 변수가 너무 많습니다.
+  wordBook.vcxproj -> C:\Users\User\Desktop\wordBook\wordBook\wordBook\wordBook\Debug\wordBook.exe
