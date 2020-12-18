@@ -32,3 +32,4 @@
 
 ## **설계도**
 * [단어장 기능 구현 설계도] : (https://github.com/kim-hyeon-gi/wordBook/blob/master/%EC%84%A4%EA%B3%84%EB%8F%84.PNG)
+* [단어장 GUI 구현 설계도] : (https://github.com/kim-hyeon-gi/wordBook/blob/hyeongi/WordBookForm%20%EC%84%A4%EA%B3%84%EB%8F%84.hwp)
