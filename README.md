@@ -16,6 +16,9 @@
 이 단어장 프로젝트는  visual studio 프로그램을 이용하여 C언어를 통해 진행하게 됩니다. 먼저 간단히 단어장 프로그램에 들어갈 기능을 구현하는 알고리즘을 만들어서 테스트 해본후 win32 API를 통하여 graphical user interface(GUI)를 통해 입출력이 가능하도록 만들 예정입니다. 또한 프로그램을 만들때 모듈들을 세부적으로 나누어 만들 예정입니다.
 조원 각각이 각자의 branch에서 자신의 코드를 만든후 master branch로 merge하면서 오류가 있는지 확인하며 진행할 예정입니다.
 
+## **프로젝트에 참여하는 방법**
+https://github.com/kim-hyeon-gi/wordBook/blob/master/CONTRIBUTING.md
+
 ## **주요 기능**
 1. 단어 추가 및 저장
 2. 단어 검색(단어의 뜻이나 spelling을 통해)
