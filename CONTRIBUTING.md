@@ -30,4 +30,12 @@
   $ git push https://github.com/kim-hyeon-gi/wordBook test
   ```
 
+**또 다른 방식의 기여를 원하시는 분은 다음의 이메일로 메일보내주시면 감사하겠습니다**
+
+kk1624@naver.com
+
+kimhun0505@naver.com
+
 **많은 참여 부탁드립니다!**
+
+작성자:최낙현
